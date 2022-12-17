@@ -154,3 +154,144 @@ print("the number of characters in \(word) is \(word.count)")
 word += "\u{301}"    // COMBINING ACUTE ACCENT, U+0301
 print("the number of characters in \(word) is \(word.count)")
 // Prints "the number of characters in café is 4"
+//:Accessing and Modifying a String
+let greeting = "Guten Tag!"
+greeting[greeting.startIndex]
+
+greeting[greeting.index(before: greeting.endIndex)]
+
+greeting[greeting.index(after: greeting.startIndex)]
+
+greeting[greeting.index(after: greeting.index(after: greeting.startIndex))]
+
+let index = greeting.index(greeting.startIndex, offsetBy: 8)
+greeting[index]
+
+//greeting[greeting.endIndex]
+
+//greeting.index(after: greeting.endIndex)
+
+for index in greeting.indices {
+    print("\(greeting[index])", terminator: " ")
+}
+
+var myName = "Abdullah"
+print(myName.startIndex)
+print(myName.endIndex)
+
+var myNameEmpty = " "
+print(myNameEmpty.startIndex)
+print(myNameEmpty.endIndex)
+
+let greet = "Hello"
+greet[greet.startIndex]
+greet[greet.index(before: greet.endIndex)]
+greet[greet.index(after: greet.startIndex)]
+
+let index2 = greet.index(greet.startIndex, offsetBy: 2)
+print(index2)
+
+//greet[greet.endIndex]
+//greet.index(after: greet.endIndex)
+
+for index in greet.indices {
+    print(index)
+    print("\(greet[index])", terminator: " ")
+}
+
+var welcome2 = "hello"
+welcome2.insert("!", at: welcome2.endIndex)
+//welcome2.insert("!", at: welcome2.startIndex)
+
+//welcome2.insert(contentsOf: " there", at: welcome2.endIndex)
+
+welcome2.insert(contentsOf: " there", at: welcome2.index(before: welcome2.endIndex))
+
+welcome2.remove(at: welcome2.index(before: welcome2.endIndex))
+print(welcome2)
+
+let range = welcome2.index(welcome2.endIndex, offsetBy: -6)..<welcome2.endIndex
+print(range)
+
+welcome2.removeSubrange(range)
+print(welcome2)
+
+let greeting2 = "Hello, World"
+let index3 = greeting2.firstIndex(of: ",") ?? greeting2.endIndex
+let beginning = greeting2[..<index3]
+let newString = String(beginning)
+//:Comparing Strings
+let quotation2 = "We're a lot alike, you and I."
+let sameQuotation2 = "We're a lot alike, you and I."
+
+if quotation2 == sameQuotation2 {
+    print("These two strings are considered equal")
+
+}
+let eAcuteQuestion = "Voulez-vous un caf\u{E9}?"
+let combinedEAcuteQuestion = "Voulez-vous un caf\u{65}\u{301}?"
+
+if eAcuteQuestion == combinedEAcuteQuestion {
+    print("These two strings are considered equal")
+}
+let latinCapitalLetterA: Character = "\u{41}"
+let cyrillicCapitalLetterA: Character = "\u{0410}"
+if latinCapitalLetterA != cyrillicCapitalLetterA {
+    print("These two characters aren't equivalent.")
+}
+
+//:Prefix and Suffix Equality
+let romeoAndJuliet = [
+    "Act 1 Scene 1: Verona, A public place",
+    "Act 1 Scene 2: Capulet's mansion",
+    "Act 1 Scene 3: A room in Capulet's mansion",
+    "Act 1 Scene 4: A street outside Capulet's mansion",
+    "Act 1 Scene 5: The Great Hall in Capulet's mansion",
+    "Act 2 Scene 1: Outside Capulet's mansion",
+    "Act 2 Scene 2: Capulet's orchard",
+    "Act 2 Scene 3: Outside Friar Lawrence's cell",
+    "Act 2 Scene 4: A street in Verona",
+    "Act 2 Scene 5: Capulet's mansion",
+    "Act 2 Scene 6: Friar Lawrence's cell"
+]
+
+var act1SceneCount = 0
+for scene in romeoAndJuliet {
+    if scene.hasPrefix("Act 1 ") {
+        act1SceneCount += 1
+    }
+}
+print("There are \(act1SceneCount) scenes in Act 1")
+
+var mansionCount = 0
+var cellCount = 0
+for scene in romeoAndJuliet {
+    if scene.hasSuffix("Capulet's mansion") {
+        mansionCount += 1
+    } else if scene.hasSuffix("Friar Lawrence's cell") {
+        cellCount += 1
+    }
+}
+print("\(mansionCount) mansion scenes; \(cellCount) cell scenes")
+
+//:Unicode Representations of Strings
+let dogString = "Dog‼🐶"
+
+for codeUnit in dogString.utf8 {
+    print("\(codeUnit) ", terminator: "")
+}
+print("")
+
+for codeUnit in dogString.utf16 {
+    print("\(codeUnit) ", terminator: "")
+}
+print("")
+
+for scalar in dogString.unicodeScalars {
+    print("\(scalar.value) ", terminator: "")
+}
+print("")
+
+for scalar in dogString.unicodeScalars {
+    print("\(scalar) ")
+}
